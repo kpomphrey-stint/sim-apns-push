@@ -1,4 +1,4 @@
-import { Notification, Event } from 'push-receiver';
+import { Event } from 'push-receiver';
 import hash from 'object-hash';
 import { pipe } from 'ramda';
 import { APNS_DIR, APNS_SIMULATOR_UUID, APNS_TARGET_BUNDLE } from '../config';

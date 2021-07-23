@@ -1,5 +1,5 @@
 import { createLogger, transports, format } from 'winston';
-import expressWinston, { LoggerOptions } from 'express-winston';
+import expressWinston from 'express-winston';
 
 const { Console } = transports;
 const { colorize, json, combine, simple } = format;

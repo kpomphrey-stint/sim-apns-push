@@ -7,7 +7,7 @@ declare module 'push-receiver' {
   };
   export type Event = {
     notification: {
-      data?: object;
+      data?: Record<string, unknown>;
       from?: string;
       notification: Notification;
       priority?: 'string';

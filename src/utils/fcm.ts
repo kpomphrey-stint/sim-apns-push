@@ -4,7 +4,7 @@ import { logger } from './logger';
 import { push } from './apns';
 
 // In memory store for the token registered credentials
-export let credentials = new Map<string, Credentials>();
+export const credentials = new Map<string, Credentials>();
 
 /**
  * Register against the GCM and FCM

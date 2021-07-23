@@ -1,4 +1,4 @@
-import { Application, Router } from 'express';
+import { Application } from 'express';
 import proxy from 'express-http-proxy';
 import { logger } from './utils/logger';
 import { API_PATH, PROXY_API, PROXY_HTTPS } from './config';
