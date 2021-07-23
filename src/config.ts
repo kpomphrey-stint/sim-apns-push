@@ -17,7 +17,7 @@ export const {
 
   // APNS
   APNS_DIR = '/tmp',
-  APNS_SIMULATOR_UUID,
+  APNS_SIMULATOR_UUID = 'booted',
   APNS_TARGET_BUNDLE,
 } = process.env;
 

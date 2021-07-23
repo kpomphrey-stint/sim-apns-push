@@ -80,13 +80,33 @@ APNS_SIMULATOR_UUID=12345678-1234-1234-12345678
 APNS_TARGET_BUNDLE=com.my.bundle
 ```
 
-You should create a `.env.local` and add your own settings there.
+You should create a `.env.local` and add your own settings there.  Typically you will only need the following in `.env.local`
+
+```
+# FCM
+SENDER_ID=123456789
+
+# Proxy
+PROXY_API=my.api.com
+PROXY_HTTPS=true
+
+# APNS
+APNS_TARGET_BUNDLE=com.my.bundle
+```
 
 ## How do I find the simulator UUID?
-Make sure your simulator is booted and run
+Make sure your simulator is booted and run:
 
 ```
 xcrun simctl list | grep "(Booted)"
+```
+
+If you only have 1 simulator device running then the uuid defaults to `booted` which will attach automatically and you can omit it e.g.
+
+```
+# .env
+
+APNS_SIMULATOR_UUID=booted
 ```
 
 ## How does it work?
