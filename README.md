@@ -12,6 +12,37 @@ It's sole purpose is to be used with an iOS simulator, on macOS to show push not
 
 Run `yarn` from the root
 
+### iOS
+In order for the application to show notifications properly the following must be present in the `AppDelegate.m` and `AppDelegate.h`
+
+#### `AppDelegate.h`
+
+```Objective-C
+#import <UserNotifications/UserNotifications.h>
+
+@interface AppDelegate : UIResponder <UNUserNotificationCenterDelegate>
+```
+
+#### `AppDelegate.m`
+```Objective-C
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    // ... all your other stuff
+
+    // iOS simulator APNS
+    #if TARGET_IPHONE_SIMULATOR
+        [[UNUserNotificationCenter currentNotificationCenter] setDelegate:self];
+    #endif
+}
+
+// --- iOS simulator APNS ---
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler {
+  #if TARGET_IPHONE_SIMULATOR
+    completionHandler(UNNotificationPresentationOptionAlert|UNNotificationPresentationOptionBanner);
+  #endif
+}
+// --- iOS simulator APNS ---
+```
+
 ## Running
 
 Run `yarn start` from the root
@@ -31,10 +62,10 @@ API_PATH=/api/v1
 DEBUG_VERBOSE=false
 
 # FCM sender ID, found in the cloud messaging console
-SENDER_ID=777568941428
+SENDER_ID=123456789
 
 # Proxy API host (without the path)
-PROXY_API=preprod.api.qa-stint.net
+PROXY_API=my.api.com
 
 # Whether the proxy API is https or not
 PROXY_HTTPS=true
@@ -43,13 +74,13 @@ PROXY_HTTPS=true
 APNS_DIR=/tmp
 
 # Simulator UUID
-APNS_SIMULATOR_UUID=D6F87E56-19DF-4A46-9653-3D9400416CDA
+APNS_SIMULATOR_UUID=12345678-1234-1234-12345678
 
 # App bundle ID to target
-APNS_TARGET_BUNDLE=com.stint.v3
+APNS_TARGET_BUNDLE=com.my.bundle
 ```
 
-You should create a `.env.local` and add your own settings there
+You should create a `.env.local` and add your own settings there.
 
 ## How do I find the simulator UUID?
 Make sure your simulator is booted and run
