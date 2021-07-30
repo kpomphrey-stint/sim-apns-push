@@ -1,25 +1,39 @@
-import cors from 'cors';
 import express from 'express';
-
-import { API_PORT, DEBUG_VERBOSE } from './config';
-import { attachProxy } from './proxy';
-import { expressLogger, logger } from './utils/logger';
-import { isMac } from './utils/os';
+import cors from 'cors';
+import { fcmToApns } from 'express-fcm-to-apns';
+import {
+  API_PATH,
+  API_PORT,
+  APNS_DIR,
+  APNS_SIMULATOR_UUID,
+  APNS_TARGET_BUNDLE,
+  PROXY_API,
+  PROXY_HTTPS,
+  SENDER_ID,
+} from './config';
+import { logger } from './utils/logger';
 
 const start = () => {
   const app = express();
 
-  if (!isMac()) {
-    logger.warn('This proxy service is only intended for macOS');
-  }
-
   app.use(cors());
-
-  if (DEBUG_VERBOSE) {
-    app.use(expressLogger());
-  }
-
-  attachProxy(app);
+  app.use(
+    fcmToApns({
+      apiUrl: PROXY_API!,
+      apns: {
+        dir: APNS_DIR,
+        targetBundle: APNS_TARGET_BUNDLE!,
+        targetDevice: APNS_SIMULATOR_UUID,
+      },
+      interceptPath: API_PATH + '/comms/device_token/',
+      senderId: SENDER_ID!,
+      tokenPath: ['firebase_registration_id'],
+      proxyOpts: {
+        https: PROXY_HTTPS,
+      },
+      logger,
+    })
+  );
 
   app.listen(API_PORT, () => {
     logger.info(`📲 iOS APNS proxy running on port ${API_PORT}`);
