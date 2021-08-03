@@ -21,7 +21,7 @@
     "cors": "^2.8.5",
     "dotenv-flow": "^3.2.0",
     "express": "^4.17.1",
-    "express-fcm-to-apns": "../express-fcm-to-apns/",
+    "express-fcm-to-apns": "^0.0.4",
     "express-winston": "^4.1.0",
     "nodemon": "^2.0.12",
     "object-hash": "^2.2.0",

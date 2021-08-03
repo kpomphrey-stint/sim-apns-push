@@ -19,18 +19,25 @@ const start = () => {
   app.use(cors());
   app.use(
     fcmToApns({
+      // Proxy related
       apiUrl: PROXY_API!,
+      interceptPath: API_PATH + '/comms/device_token/',
+      proxyOpts: {
+        https: PROXY_HTTPS,
+      },
+      tokenPath: ['firebase_registration_id'],
+
+      // FCM related
+      senderId: SENDER_ID!,
+
+      // APNS related
       apns: {
         dir: APNS_DIR,
         targetBundle: APNS_TARGET_BUNDLE!,
         targetDevice: APNS_SIMULATOR_UUID,
       },
-      interceptPath: API_PATH + '/comms/device_token/',
-      senderId: SENDER_ID!,
-      tokenPath: ['firebase_registration_id'],
-      proxyOpts: {
-        https: PROXY_HTTPS,
-      },
+
+      // Misc
       logger,
     })
   );

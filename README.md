@@ -14,7 +14,6 @@ Run `yarn` from the root
 
 ### iOS
 In order for the application to show notifications properly the following must be present in the `AppDelegate.m` and `AppDelegate.h`
-
 #### `AppDelegate.h`
 
 ```Objective-C
